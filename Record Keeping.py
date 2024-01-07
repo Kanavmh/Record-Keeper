@@ -2,33 +2,33 @@ import os
 import platform
 import mysql.connector
 import pandas as pd
-mydb = mysql.connector.connect(host="localhost",user="user",passwd="####",port="2004",database="Course")
+mydb = mysql.connector.connect(host="localhost",user="user",passwd="####",port="2004",database="Database") ##Enter host, username, password, port and database details from SQL
 mycursor=mydb.cursor()
 def course_Insert():
     L=[]
-    c_id=int(input("Enter the course id :"))
+    c_id=int(input("Enter the id: "))
     L.append(c_id)
-    stream=input("Enter the Stream Name:")
+    stream=input("Enter the Stream: ")
     L.append(stream)
-    C_name=(input("Enter available opportunities or courses in this stream :"))
+    C_name=(input("Enter available opportunities in this stream :"))
     L.append(C_name)
     course=(L)
     sql="insert into course_details (c_id, stream, c_name) values (%s, %s, %s)"
-    mycursor.execute(sql, course)
+    mycursor.execute(sql, database)
     mydb.commit()
 def cView():
     print("Select the search criteria :")
     print("1. c_id")
     print("2. Stream")
     print("3. All")
-    ch=int (input("Enter the choice :"))
+    ch=int (input("Enter choice: "))
     if ch==1:
         s=int (input("c_id :"))
         c=(s,)
         sql="select * from course_details where c_id=%s"
         mycursor.execute(sql, c)
     elif ch==2:
-        s=input("Enter stream Name :")
+        s=input("Enter stream: ")
         n=(s,)
         sql="select * from course_details where c_name=%s"
         mycursor.execute(sql,n)
@@ -49,9 +49,9 @@ def removecourse():
     mycursor.execute(sql,ci)
     mydb.commit()
 def MenuSet():
-    print("Enter 1: To Add course")
-    print("Enter 2: To View course")
-    print("Enter 3: To Remove course")
+    print("Enter 1: To Add ")
+    print("Enter 2: To View ")
+    print("Enter 3: To Remove ")
     try:
         userInput = int(input("Please Select An Above Option:"))
     except ValueError:
